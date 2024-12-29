@@ -1,11 +1,143 @@
 /* Estilos base */
 body {
   font-family: Arial, sans-serif;
+  font-size: 16px;
   margin: 0;
   padding: 0;
   text-align: center;
   transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave entre modos */
 }
+
+@media (max-width: 768px) {
+  /* Cambios para tabletas y teléfonos */
+  body {
+    font-size: 12px; /* Reduce el tamaño de texto */
+    padding: 10px;
+  }
+
+  button {
+    padding: 8px 16px; /* Botones más pequeños */
+  }
+
+  .buttons-container {
+    flex-direction: column; /* Acomoda los botones en una columna */
+    gap: 0.5rem;
+  }
+
+  .control-buttons-container button {
+    width: 50px;
+    height: 35px;
+    margin: 8px;
+  }
+
+  .game-modes {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .mode-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+/* Responsive styles for mobile devices */
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  h2 {
+    font-size: 22px; /* Adjust header size */
+  }
+
+  .game-modes {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+    margin: 10px 0;
+  }
+
+  .game-container {
+    margin: 10px 0;
+  }
+
+  .color-row {
+    gap: 3px;
+    margin-bottom: 8px;
+  }
+
+  .color-box {
+    width: 60px !important;
+    height: 60px !important;
+    margin: 3px;
+  }
+
+  .color-buttons-container {
+    display: grid; /* Switch to grid layout */
+    grid-template-columns: repeat(5, 1fr); /* Ensure buttons fill the row evenly */
+    gap: 5px; /* Smaller spacing between buttons */
+    margin-bottom: 10px;
+  }
+
+  .color-button {
+    width: 40px; /* Smaller buttons */
+    height: 40px;
+  }
+
+  .control-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Spread control buttons */
+    gap: 5px; /* Adjust spacing */
+  }
+
+  #backspace-button, #enter-button, #restart-button {
+    width: 50px; /* Adjust control button size */
+    height: 35px;
+    font-size: 10px; 
+  }
+
+  .theme-toggle-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  #toggle-theme {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+
+  .scroll-container {
+    max-height: 250px; /* Adjust scrollable height */
+    width: 100%; /* Full width */
+    border: none;
+  }
+
+  .popup {
+    width: 90%;
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .popup h3, .popup h2 {
+    font-size: 18px;
+  }
+
+  .popup-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .winning-colors .color-box {
+    width: 30px; /* Smaller popup boxes */
+    height: 30px;
+  }
+}
+
 
 .theme-light {
   background-color: #ffffff; /* Fondo claro */

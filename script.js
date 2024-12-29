@@ -28,6 +28,7 @@ const successPopup = document.getElementById('success-popup');
 const closeSuccessPopupButton = document.getElementById('close-success-popup');
 const repeatedColorsBtn = document.getElementById('repeated-colors');
 const uniqueColorsBtn = document.getElementById('unique-colors');
+const keyboard = document.getElementById('keyboard');
 
 let guessSequence = [];
 let attempts = 0;
@@ -464,6 +465,20 @@ window.addEventListener('load', adjustKeyboardPosition);
 // Ajustar la posición del teclado si cambia el tamaño de la ventana
 window.addEventListener('resize', adjustKeyboardPosition);
 
+// Debounce function to limit the rate at which a function can fire
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+// Adjust the position of the keyboard when the page loads
+window.addEventListener('load', adjustKeyboardPosition);
+
+// Adjust the position of the keyboard if the window size changes, with debounce
+window.addEventListener('resize', debounce(adjustKeyboardPosition, 100));
 
 // Initialize the game
 createNewRow();
