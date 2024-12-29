@@ -8,28 +8,35 @@
 </head>
 <body>
   <h1>Colorless Game</h1>
+  
+  <!-- Botones de modos de juego -->
   <div class="game-modes">
-    <button id="repeated-colors" class="mode-button active">Colores Repetidos</button>
-    <button id="unique-colors" class="mode-button">Colores No Repetidos</button>
+    <button id="repeated-colors" class="mode-button active">Repeated Colors</button>
+    <button id="unique-colors" class="mode-button">No-Repeated Colors</button>
   </div>
+  
   <p>Guess the hidden colors in the correct order!</p>
   
-  <div class="game-container"></div>
+  <!-- Contenedor principal desplazable -->
+  <div class="scroll-container">
+    <div class="game-container"></div>
+  </div>
 
+  <!-- Teclado fijo -->
   <div id="keyboard">
     <div class="color-buttons-container">
-        <button class="color-button" data-color="red" style="background-color: red;"></button>
-        <button class="color-button" data-color="blue" style="background-color: blue;"></button>
-        <button class="color-button" data-color="green" style="background-color: green;"></button>
-        <button class="color-button" data-color="yellow" style="background-color: yellow;"></button>
-        <button class="color-button" data-color="black" style="background-color: black;"></button>
+        <button class="color-button" data-color="pastelRed" style="background-color: #FF474C;"></button>
+        <button class="color-button" data-color="pastelBlue" style="background-color: #77cbda;"></button>
+        <button class="color-button" data-color="pastelGreen" style="background-color: #80ef80;"></button>
+        <button class="color-button" data-color="pastelYellow" style="background-color: #ffed29;"></button>
+        <button class="color-button" data-color="black" style="background-color: #252525;"></button>
     </div>
     <div class="color-buttons-container">
-        <button class="color-button" data-color="purple" style="background-color: purple;"></button>
-        <button class="color-button" data-color="orange" style="background-color: orange;"></button>
-        <button class="color-button" data-color="pink" style="background-color: pink;"></button>
-        <button class="color-button" data-color="brown" style="background-color: brown;"></button>
-        <button class="color-button" data-color="gray" style="background-color: gray;"></button>
+        <button class="color-button" data-color="pastelPurple" style="background-color: #6a5acd;"></button>
+        <button class="color-button" data-color="pastelOrange" style="background-color: #ff5c00;"></button>
+        <button class="color-button" data-color="pastelPink" style="background-color: #ff8da1;"></button>
+        <button class="color-button" data-color="pastelBrown" style="background-color: #895129;"></button>
+        <button class="color-button" data-color="pastelGray" style="background-color: #6d8196;"></button>
     </div>
     <div class="control-buttons-container">
         <button id="backspace-button">Backspace</button>
@@ -41,20 +48,20 @@
   <p id="hint"></p>
   <p id="result"></p>
 
+  <!-- Pop-up de error -->
   <div id="popup" class="popup">
     <div id="popup-content" class="popup-content"></div>
     <button id="close-popup">Close</button>
   </div>
 
+  <!-- Pop-up de éxito -->
   <div id="success-popup" class="popup">
-    <div id="success-popup-content" class="popup-content">
-        <h2>¡Felicidades!</h2>
-        <p>Has adivinado todos los colores correctamente</p>
-        <div class="winning-colors"></div>
-    </div>
+    <h2>¡Felicidades!</h2>
+    <p>Has adivinado todos los colores correctamente</p>
+    <div class="winning-colors"></div>
     <button id="close-success-popup">Close</button>
   </div>
-
+  
   <script src="script.js"></script>
 </body>
 </html>
