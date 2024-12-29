@@ -41,6 +41,34 @@ let attemptsMade = 0; // Número de intentos realizados
 
 console.log(targetColors);
 
+// Evento para detectar la tecla "Enter"
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    handleEnter();
+  }
+});
+
+// Función para manejar la acción de "Enter"
+function handleEnter() {
+  if (guessSequence.length === 5) {
+    checkGuess(); // Llamar a la función de validación si hay un guess completo
+  } else {
+    // Si el intento está incompleto, agregar un efecto visual
+    const currentRow = rows[rows.length - 1].row;
+    currentRow.forEach(box => {
+      box.classList.add('shake'); // Aplicar la animación de "shake"
+    });
+
+    setTimeout(() => {
+      currentRow.forEach(box => box.classList.remove('shake')); // Remover la animación después
+    }, 500); // Duración de la animación
+  }
+}
+
+// Actualizar el botón "Enter" para reutilizar la lógica
+enterButton.addEventListener('click', handleEnter);
+
+
 //theme
 // Seleccionar el botón de alternar y el body
 const toggleThemeButton = document.getElementById('toggle-theme');
