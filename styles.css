@@ -1,7 +1,47 @@
+/* Estilos base */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave entre modos */
 }
+
+.theme-light {
+  background-color: #ffffff; /* Fondo claro */
+  color: #000000; /* Texto oscuro */
+}
+
+.theme-dark {
+  background-color: #121212; /* Fondo oscuro */
+  color: #ffffff; /* Texto claro */
+}
+
+/* Botón de alternar tema */
+.theme-toggle-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hover y activo para el botón */
+.theme-toggle-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+.theme-toggle-button:active {
+  transform: scale(0.95);
+}
+
+
 
 /* Animación de vibración */
 @keyframes shake {
@@ -95,7 +135,7 @@ body {
   width: 80px;
   height: 80px;
   margin: 5px;
-  border: 2px solid black;
+  border: none;
   background-color: gray;
   transition: background-color 0.3s ease; /* Cambios de color suaves */
   animation: none; /* Evitar animaciones residuales */
@@ -132,9 +172,7 @@ body {
 #backspace-button, #enter-button, #restart-button {
   width: 60px;
   height: 60px;
-  margin: 10px;
   font-size: 10px;
-  font-family: "Times New Roman", Times, serif;
   cursor: pointer;
 }
 
@@ -145,7 +183,7 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  border: 2px solid green;
+  border: 3px solid rgb(0, 0, 0);
   padding: 20px;
   z-index: 1000;
 }
@@ -190,7 +228,7 @@ body {
 
 .popup-title {
   font-size: 24px;
-  color: #28a745;
+  color: #ffffff;
   margin-bottom: 15px; /* Espaciado debajo del título */
 }
 
@@ -210,11 +248,30 @@ body {
   margin-bottom: 15px;
 }
 
-.control-buttons-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+/* Botones minimalistas */
+.control-buttons-container button {
+  width: 60px;
+  height: 40px;
+  margin: 10px;
+  border: none;
+  background-color: black; /* Color sólido negro */
+  color: white; /* Texto blanco para contraste */
+  border-radius: 5px; /* Bordes redondeados para un diseño más limpio */
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease; /* Animación de interacción */
 }
+
+/* Efecto hover */
+.control-buttons-container button:hover {
+  background-color: #333; /* Un tono más claro de negro al pasar el cursor */
+  transform: scale(1.05); /* Ligera ampliación para feedback visual */
+}
+
+/* Efecto activo (click) */
+.control-buttons-container button:active {
+  transform: scale(0.95); /* Ligera reducción al hacer clic */
+}
+
 
 .game-modes {
   display: flex;
@@ -224,17 +281,32 @@ body {
 }
 
 .mode-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: 2px solid #333;
-  background-color: white;
-  border-radius: 5px;
+  padding: 10px 20px; /* Tamaño del botón */
+  font-size: 14px; /* Tamaño del texto */
+  font-family: Arial, sans-serif; /* Fuente minimalista */
+  font-weight: bold; /* Texto más destacado */
+  color: white; /* Texto blanco */
+  background-color: black; /* Fondo negro sólido */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de mano */
+  transition: transform 0.2s ease, background-color 0.2s ease; /* Suavizar interacciones */
 }
 
+/* Estilo para el botón activo */
 .mode-button.active {
-  background-color: #333;
-  color: white;
+  background-color: #636363; /* Negro más claro para el botón activo */
+}
+
+/* Efecto hover */
+.mode-button:hover {
+  background-color: #555; /* Negro intermedio al pasar el cursor */
+  transform: scale(1.05); /* Ligera ampliación */
+}
+
+/* Efecto activo (click) */
+.mode-button:active {
+  transform: scale(0.95); /* Ligera reducción al hacer clic */
 }
 
 /* Botón deshabilitado */
@@ -246,7 +318,7 @@ body {
 
 /* Contenedor scrollable */
 .scroll-container {
-  max-height: 430px; /* Altura máxima del contenedor */
+  max-height: 363px; /* Altura máxima del contenedor */
   overflow-y: auto; /* Habilitar scroll vertical */
   margin: 20px auto; /* Centramos el contenedor */
   padding: 10px;

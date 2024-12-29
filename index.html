@@ -43,21 +43,27 @@
         <button id="enter-button">Enter</button>
         <button id="restart-button">Restart</button>
     </div>
+    <div class="theme-toggle-container">
+      <button id="toggle-theme" class="theme-toggle-button">Dark Mode</button>
+    </div>    
   </div>
+  
 
   <p id="hint"></p>
   <p id="result"></p>
 
   <!-- Pop-up de error -->
   <div id="popup" class="popup">
+    <h3>Oops</h3>
+    <p>You did not guess the colors correctly... This were!</p>
     <div id="popup-content" class="popup-content"></div>
     <button id="close-popup">Close</button>
   </div>
 
   <!-- Pop-up de éxito -->
   <div id="success-popup" class="popup">
-    <h2>¡Felicidades!</h2>
-    <p>Has adivinado todos los colores correctamente</p>
+    <h2>Congrats!</h2>
+    <p>You have been able to complete today's puzzle!</p>
     <div class="winning-colors"></div>
     <button id="close-success-popup">Close</button>
   </div>

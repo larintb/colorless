@@ -41,6 +41,50 @@ let attemptsMade = 0; // Número de intentos realizados
 
 console.log(targetColors);
 
+//theme
+// Seleccionar el botón de alternar y el body
+const toggleThemeButton = document.getElementById('toggle-theme');
+const body = document.body;
+
+// Configurar el tema inicial
+let isDarkMode = false; // Por defecto, modo claro
+
+// Alternar entre temas
+toggleThemeButton.addEventListener('click', () => {
+  isDarkMode = !isDarkMode; // Alternar el estado
+
+  // Cambiar las clases del body
+  if (isDarkMode) {
+    body.classList.remove('theme-light');
+    body.classList.add('theme-dark');
+    toggleThemeButton.textContent = 'Light Mode'; // Cambiar texto del botón
+  } else {
+    body.classList.remove('theme-dark');
+    body.classList.add('theme-light');
+    toggleThemeButton.textContent = 'Dark Mode'; // Cambiar texto del botón
+  }
+});
+
+// Evento para detectar la tecla "Backspace"
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Backspace') {
+    handleBackspace();
+  }
+});
+
+// Función para manejar la acción de "Backspace"
+function handleBackspace() {
+  if (guessSequence.length > 0) {
+    guessSequence.pop(); // Eliminar el último color de la secuencia
+    updateBoxes(); // Actualizar los cuadros de la fila activa
+  }
+}
+
+// Actualizar el botón "Backspace" para reutilizar la lógica
+backspaceButton.addEventListener('click', handleBackspace);
+
+
+
 // Toggle game modes
 repeatedColorsBtn.addEventListener('click', () => {
   if (!isRepeatedColors) {
