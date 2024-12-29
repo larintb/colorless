@@ -1,10 +1,70 @@
 /* Estilos base */
 body {
   font-family: Arial, sans-serif;
+  font-size: 16px;
   margin: 0;
   padding: 0;
   text-align: center;
   transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave entre modos */
+}
+
+@media (max-width: 768px) {
+  /* Cambios para tabletas y teléfonos */
+  body {
+    font-size: 14px; /* Reduce el tamaño de texto */
+    padding: 10px;
+  }
+
+  button {
+    padding: 8px 16px; /* Botones más pequeños */
+  }
+
+  .buttons-container {
+    flex-direction: column; /* Acomoda los botones en una columna */
+    gap: 0.5rem;
+  }
+
+  .control-buttons-container button {
+    width: 50px;
+    height: 35px;
+    margin: 8px;
+  }
+
+  .game-modes {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .mode-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Cambios específicos para pantallas muy pequeñas */
+  button {
+    width: 100%; /* Botones ocupan todo el ancho */
+    text-align: center;
+  }
+
+  .control-buttons-container button {
+    width: 40px;
+    height: 30px;
+    margin: 5px;
+  }
+
+  .game-modes {
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .mode-button {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
 }
 
 .theme-light {
