@@ -244,13 +244,17 @@ body {
 }
 
 
+/* Contenedor scrollable */
 .scroll-container {
-  position: relative;
-  max-height: calc(100vh - 180px); /* Deja espacio para el teclado */
-  overflow-y: auto; /* Activa scroll automático */
-  margin-bottom: 100px; /* Espacio para evitar colisión */
-  transition: all 0.3s ease-in-out;
+  max-height: 430px; /* Altura máxima del contenedor */
+  overflow-y: auto; /* Habilitar scroll vertical */
+  margin: 20px auto; /* Centramos el contenedor */
+  padding: 10px;
+  border: none;
+  border-radius: 5px; /* Bordes redondeados */
+  width: 90%; /* Tamaño relativo al ancho */
 }
+
 
 .scroll-container.scroll-enabled {
   overflow-y: auto; /* Activar barra de desplazamiento */

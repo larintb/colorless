@@ -31,7 +31,7 @@ const uniqueColorsBtn = document.getElementById('unique-colors');
 
 let guessSequence = [];
 let attempts = 0;
-const maxAttempts = 7;
+const maxAttempts = 5;
 let rows = [];
 let isRepeatedColors = true; // Default mode
 let targetColors = generateTargetColors();
@@ -120,8 +120,8 @@ function checkScrollRequirement() {
   const scrollContainer = document.querySelector('.scroll-container');
   const totalRows = rows.length; // Número total de filas de guesses
 
-  // Activar scroll si hay más de 6 filas
-  if (totalRows > 6) {
+  // Asegurarse de que siempre hay espacio para los 5 intentos
+  if (totalRows >= 1) {
     scrollContainer.classList.add('scroll-enabled');
     scrollContainer.scrollTop = scrollContainer.scrollHeight; // Desplazar hacia abajo automáticamente
   } else {
@@ -176,11 +176,7 @@ function createNewRow() {
   // Verificar si se requiere scroll después de crear la fila
   checkScrollRequirement();
 
-  // Mover automáticamente hacia el final del contenedor si el scroll está habilitado
-  const scrollContainer = document.querySelector('.scroll-container');
-  if (scrollContainer.classList.contains('scroll-enabled')) {
-    scrollContainer.scrollTop = scrollContainer.scrollHeight;
-  }
+  
 
   // Remover la clase de animación después de que se ejecute
   setTimeout(() => {
@@ -308,6 +304,7 @@ function showPopup() {
   setTimeout(() => {
     popup.classList.remove('bounce-in');
   }, 600); // Duración de la animación
+  disableAllButtons();
 }
 
 // Function to handle shaking effect
@@ -399,4 +396,3 @@ window.addEventListener('resize', adjustKeyboardPosition);
 // Initialize the game
 createNewRow();
 buttons.forEach(resetButton);
-
