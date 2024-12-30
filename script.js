@@ -430,6 +430,16 @@ closeSuccessPopupButton.addEventListener('click', () => {
   successPopup.style.display = 'none';
 });
 
+function adjustScrollHeight() {
+  const scrollContainer = document.querySelector('.scroll-container');
+  const viewportHeight = window.innerHeight;
+  scrollContainer.style.maxHeight = `${viewportHeight * 0.5 - 120}px`;
+}
+
+window.addEventListener('resize', adjustScrollHeight);
+adjustScrollHeight();
+
+
 function adjustKeyboardPosition() {
   const gameContainer = document.querySelector('.game-container');
   const keyboard = document.getElementById('keyboard');
