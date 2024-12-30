@@ -133,7 +133,7 @@ body {
   }
 
   .scroll-container {
-    max-height: 100px !important; /* Altura máxima del contenedor */
+    max-height: 80px !important; /* Altura máxima del contenedor */
     overflow-y: auto !important; /* Habilitar scroll vertical */
     margin: 20px auto !important; /* Centramos el contenedor */
     padding: 5px !important;
@@ -178,6 +178,18 @@ body {
 .theme-dark {
   background-color: #121212; /* Fondo oscuro */
   color: #ffffff; /* Texto claro */
+}
+
+.theme-dark .popup {
+  background-color: #333; /* Fondo oscuro */
+  color: #fff; /* Texto claro */
+  border: 2px solid #fff; /* Borde claro */
+}
+
+.theme-dark #success-popup {
+  background-color: #333; /* Fondo oscuro */
+  color: #28a745; /* Texto verde */
+  border: 2px solid #28a745; /* Borde verde */
 }
 
 /* Botón de alternar tema */

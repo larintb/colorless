@@ -112,7 +112,8 @@ function handleBackspace() {
 // Actualizar el botón "Backspace" para reutilizar la lógica
 backspaceButton.addEventListener('click', handleBackspace);
 
-
+// Remove duplicate backspace event listener
+backspaceButton.removeEventListener('click', handleBackspace);
 
 // Toggle game modes
 repeatedColorsBtn.addEventListener('click', () => {
@@ -407,10 +408,14 @@ buttons.forEach(button => {
   });
 });
 
-backspaceButton.addEventListener('click', () => {
-  guessSequence.pop();
-  updateBoxes();
+// Remove duplicate backspace event listener
+document.removeEventListener('keydown', (event) => {
+  if (event.key === 'Backspace') {
+    handleBackspace();
+  }
 });
+
+backspaceButton.addEventListener('click', handleBackspace);
 
 enterButton.addEventListener('click', () => {
   if (guessSequence.length < 5) {
