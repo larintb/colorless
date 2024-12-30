@@ -133,7 +133,7 @@ body {
   }
 
   .scroll-container {
-    max-height: 250px; /* Adjust scrollable height */
+    max-height: 150px; /* Adjust scrollable height */
     width: 100%; /* Full width */
     border: none;
   }
