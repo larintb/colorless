@@ -4,12 +4,12 @@ const pastelColors = {
   pastelBlue: '#77cbda',
   pastelGreen: '#80ef80',
   pastelYellow: '#ffed29',
-  black: '#252525', // Reemplazo para "black"
+  black: '#252525',
   pastelPurple: '#6a5acd',
   pastelOrange: '#ff5c00',
   pastelPink: '#ff8da1',
   pastelBrown: '#895129',
-  pastelGray: '#6d8196'
+  pastelGray: '#67809b'
 };
 
 // Convertimos los valores a una lista para su uso
@@ -39,8 +39,6 @@ let targetColors = generateTargetColors();
 let invalidColors = new Set(); // Tracks invalid colors
 let initialDistance; // Distancia inicial entre el contenedor y el teclado
 let attemptsMade = 0; // Número de intentos realizados
-
-console.log(targetColors);
 
 // Evento para detectar la tecla "Enter"
 document.addEventListener('keydown', (event) => {
@@ -112,9 +110,6 @@ function handleBackspace() {
 // Actualizar el botón "Backspace" para reutilizar la lógica
 backspaceButton.addEventListener('click', handleBackspace);
 
-// Remove duplicate backspace event listener
-backspaceButton.removeEventListener('click', handleBackspace);
-
 // Toggle game modes
 repeatedColorsBtn.addEventListener('click', () => {
   if (!isRepeatedColors) {
@@ -148,19 +143,6 @@ function generateTargetColors() {
   return colors;
 }
 
-function markInvalidColors() {
-  guessSequence.forEach(color => {
-    if (!targetColors.includes(color)) {
-      const button = document.querySelector(`.color-button[data-color="${color}"]`);
-      if (button) {
-        button.style.backgroundColor = '#A6A6A6'; // Cambiar a gris oscuro
-        button.style.color = '#ffffff'; // Texto blanco para contraste
-        button.disabled = true; // Deshabilitar el botón
-      }
-    }
-  });
-}
-
 function markButtonAsInvalid(color) {
   const button = document.querySelector(`.color-button[data-color="${color}"]`);
   if (button) {
@@ -178,30 +160,44 @@ function restartGame() {
   rows = [];
   gameContainer.innerHTML = '';
   targetColors = generateTargetColors();
-  console.log('New target colors:', targetColors);
   createNewRow();
   attempts = 0;
   attemptsMade = 0;
   enableAllButtons();
 
-  // Restablecer la posición de scroll
-  const scrollContainer = document.querySelector('.scroll-container');
-  scrollContainer.classList.remove('scroll-enabled');
-  scrollContainer.scrollTop = 0; // Volver al inicio
 }
+
+let scrollTimeout; // Variable para manejar el temporizador
 
 function checkScrollRequirement() {
   const scrollContainer = document.querySelector('.scroll-container');
-  const totalRows = rows.length; // Número total de filas de guesses
+  const totalRows = rows.length; // Número total de filas
 
-  // Asegurarse de que siempre hay espacio para los 5 intentos
+  // Si hay suficientes filas para requerir scroll
   if (totalRows >= 1) {
-    scrollContainer.classList.add('scroll-enabled');
-    scrollContainer.scrollTop = scrollContainer.scrollHeight; // Desplazar hacia abajo automáticamente
+    // Detectar uso de la rueda del mouse
+    scrollContainer.addEventListener('wheel', () => {
+      scrollContainer.classList.add('scroll-enabled'); // Mostrar la barra de desplazamiento
+
+      // Reinicia el temporizador cada vez que se usa la rueda
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        scrollContainer.classList.remove('scroll-enabled'); // Ocultar la barra
+      }, 2000); // Ocultar después de 2 segundos (ajustar tiempo si es necesario)
+    });
+
+    // Opcional: desplazarse automáticamente al final del contenido
+    scrollContainer.scrollTop = scrollContainer.scrollHeight;
   } else {
+    // Quitar scroll si no hay suficientes filas
     scrollContainer.classList.remove('scroll-enabled');
   }
 }
+
+// Llamar a la función al cargar o actualizar las filas
+checkScrollRequirement();
+
+
 
 function disableAllButtons() {
   buttons.forEach(button => button.disabled = true); // Deshabilitar botones del teclado
@@ -310,7 +306,6 @@ function checkGuess() {
   } else {
     guessSequence = [];
     createNewRow();
-    reduceKeyboardDistance(); // Reducir la distancia entre el teclado y el contenedor
   }
 }
 
@@ -398,7 +393,7 @@ function shakeRow() {
   }, 400);
 }
 
-// Event listeners
+// Keyboard color input
 buttons.forEach(button => {
   button.addEventListener('click', () => {
     if (guessSequence.length < 5) {
@@ -408,18 +403,11 @@ buttons.forEach(button => {
   });
 });
 
-// Remove duplicate backspace event listener
-document.removeEventListener('keydown', (event) => {
-  if (event.key === 'Backspace') {
-    handleBackspace();
-  }
-});
 
-backspaceButton.addEventListener('click', handleBackspace);
 
 enterButton.addEventListener('click', () => {
   if (guessSequence.length < 5) {
-    shakeRow(); // Trigger shaking if guess is incomplete
+    shakeRow(); // shaking if guess is incomplete
   } else {
     checkGuess();
   }

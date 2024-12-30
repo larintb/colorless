@@ -8,48 +8,17 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave entre modos */
 }
 
-@media (max-width: 768px) {
-  /* Cambios para tabletas y teléfonos */
-  body {
-    font-size: 12px; /* Reduce el tamaño de texto */
-    padding: 10px;
-  }
+/* @media (max-width: 768px) {
+} */
 
-  button {
-    padding: 8px 16px; /* Botones más pequeños */
-  }
-
-  .buttons-container {
-    flex-direction: column; /* Acomoda los botones en una columna */
-    gap: 0.5rem;
-  }
-
-  .control-buttons-container button {
-    width: 50px;
-    height: 35px;
-    margin: 8px;
-  }
-
-  .game-modes {
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-
-  .mode-button {
-    padding: 8px 16px;
-    font-size: 12px;
-  }
-}
-
-
+/* iPhone pro max */
 @media (max-width: 480px) {
   body {
     font-size: 12px;
     padding: 5px;
   }
 
-  h2 {
+  h1 {
     font-size: 22px; /* Adjust header size */
   }
 
@@ -169,25 +138,158 @@ body {
   }
 }
 
+/* iPhone normal */
+@media (max-width: 420px) {
+  body {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  h1 {
+    font-size: 18px; /* Adjust header size */
+  }
+
+  .hint-row {
+    display: flex;
+    flex-wrap: wrap; /* Wrap hints to prevent overflow */
+    justify-content: center; /* Center the hint boxes */
+    gap: 5px; /* Minimize gap between boxes */
+    margin-bottom: 5px; /* Reduce margin for compact spacing */
+  }
+
+  .color-row {
+    gap: 3px;
+    margin-bottom: 8px;
+  }
+
+  /* Make hint-box smaller for mobile */
+  body .hint-box {
+    width: 40px !important;
+    height: 5px !important;
+    margin: 2px !important;
+  }
+
+  /* Adjust hint and result text for better readability */
+  #hint, #result {
+    margin-top: 10px; /* Adjust spacing */
+    font-size: 12px; /* Smaller font size */
+    text-align: center; /* Center text alignment */
+  }
+
+  .game-modes {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+    margin: 10px 0;
+  }
+
+  .game-container {
+    margin: 10px 0;
+  }
+
+  .color-box {
+    width: 40px !important;
+    height: 40px !important;
+    margin: 3px;
+  }
+
+  .color-buttons-container {
+    display: grid !important; /* Switch to grid layout */
+    grid-template-columns: repeat(5, 1fr) !important; /* Ensure buttons fill the row evenly */
+    gap: 5px !important; /* Smaller spacing between buttons */
+    margin-bottom: 10px !important;
+  }
+
+  .color-button {
+    width: 30px !important; /* Smaller buttons */
+    height: 30px !important;
+  }
+
+  .control-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Spread control buttons */
+    gap: 5px; /* Adjust spacing */
+  }
+
+  #backspace-button, #enter-button, #restart-button {
+    width: 50px; /* Adjust control button size */
+    height: 35px;
+    font-size: 10px; 
+  }
+
+  .theme-toggle-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  #toggle-theme {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+
+  .scroll-container {
+    max-height: 170px !important; /* Altura máxima del contenedor */
+    overflow-y: hidden !important; /* Habilitar scroll vertical */
+    overflow-x: hidden !important;
+    margin: auto !important; /* Centramos el contenedor */
+    padding: 5px !important;
+    border: none !important;
+    border-radius: 1px !important; /* Bordes redondeados */
+    width: 90% !important; /* Tamaño relativo al ancho */
+    transition: overflow 0.3s ease-in-out !important;
+  }
+  
+  
+  .scroll-container.scroll-enabled {
+    overflow-y: auto !important; /* Activar barra de desplazamiento */
+  } 
+
+  .popup {
+    width: 70%;
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .popup h3, .popup h2 {
+    font-size: 18px;
+  }
+
+  .popup-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .winning-colors .color-box {
+    width: 30px;
+    height: 30px;
+  }
+}
 
 .theme-light {
   background-color: #ffffff; /* Fondo claro */
   color: #000000; /* Texto oscuro */
 }
+.theme-light .popup {
+  background-color: #ffffffd0; /* Fondo oscuro */
+  color: #000000; /* Texto claro */
+  border: 2px solid #000000; /* Borde claro */
+}
 
 .theme-dark {
-  background-color: #121212; /* Fondo oscuro */
+  background-color: #000000c0; /* Fondo oscuro */
   color: #ffffff; /* Texto claro */
 }
 
 .theme-dark .popup {
-  background-color: #333; /* Fondo oscuro */
+  background-color: #000000c0; /* Fondo oscuro */
   color: #ffffff; /* Texto claro */
   border: 2px solid #fff; /* Borde claro */
 }
 
 .theme-dark #success-popup {
-  background-color: #333; /* Fondo oscuro */
+  background-color: #000000c0; /* Fondo oscuro */
   color: #28a745; /* Texto verde */
   border: 2px solid #28a745; /* Borde verde */
 }
@@ -494,12 +596,14 @@ body {
 /* Contenedor scrollable */
 .scroll-container {
   max-height: 363px; /* Altura máxima del contenedor */
-  overflow-y: auto; /* Habilitar scroll vertical */
-  margin: 20px auto; /* Centramos el contenedor */
-  padding: 10px;
+  overflow-y: hidden; /* Habilitar scroll vertical */
+  overflow-x: hidden;
+  margin:  auto; /* Centramos el contenedor */
+  padding: 5px;
   border: none;
-  border-radius: 5px; /* Bordes redondeados */
+  border-radius: 1px; /* Bordes redondeados */
   width: 90%; /* Tamaño relativo al ancho */
+  transition: overflow 0.3s ease-in-out;
 }
 
 
