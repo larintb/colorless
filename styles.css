@@ -133,7 +133,7 @@ body {
   }
 
   .scroll-container {
-    max-height: 80px !important; /* Altura máxima del contenedor */
+    max-height: 120px !important; /* Altura máxima del contenedor */
     overflow-y: auto !important; /* Habilitar scroll vertical */
     margin: 20px auto !important; /* Centramos el contenedor */
     padding: 5px !important;
