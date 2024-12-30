@@ -133,9 +133,18 @@ body {
   }
 
   .scroll-container {
-    max-height: 150px; /* Adjust scrollable height */
-    width: 100%; /* Full width */
+    max-height: 100px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Habilitar scroll vertical */
+    margin: 20px auto; /* Centramos el contenedor */
+    padding: 10px;
     border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    width: 90%; /* Tamaño relativo al ancho */
+  }
+  
+  
+  .scroll-container.scroll-enabled {
+    overflow-y: auto; /* Activar barra de desplazamiento */
   }
 
   .popup {
