@@ -71,7 +71,10 @@ enterButton.addEventListener('click', handleEnter);
 //theme
 // Seleccionar el botón de alternar y el body
 const toggleThemeButton = document.getElementById('toggle-theme');
+const themeIcon = document.getElementById('theme-icon');
+themeIcon.src = "images/moon.png";
 const body = document.body;
+body.classList.add('theme-light'); // Modo claro por defecto
 
 // Configurar el tema inicial
 let isDarkMode = false; // Por defecto, modo claro
@@ -84,11 +87,11 @@ toggleThemeButton.addEventListener('click', () => {
   if (isDarkMode) {
     body.classList.remove('theme-light');
     body.classList.add('theme-dark');
-    toggleThemeButton.textContent = 'Light Mode'; // Cambiar texto del botón
+    themeIcon.src = 'images/sun.png'; // Cambiar a ícono de sol
   } else {
     body.classList.remove('theme-dark');
     body.classList.add('theme-light');
-    toggleThemeButton.textContent = 'Dark Mode'; // Cambiar texto del botón
+    themeIcon.src = 'images/moon.png'; // Cambiar a ícono de luna
   }
 });
 

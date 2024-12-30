@@ -102,7 +102,7 @@ body {
   }
 
   .scroll-container {
-    max-height: 170px !important; /* Altura máxima del contenedor */
+    max-height: 180px !important; /* Altura máxima del contenedor */
     overflow-y: auto !important; /* Habilitar scroll vertical */
     margin: 20px auto !important; /* Centramos el contenedor */
     padding: 5px !important;
@@ -229,7 +229,7 @@ body {
   }
 
   .scroll-container {
-    max-height: 170px !important; /* Altura máxima del contenedor */
+    max-height: 180px !important; /* Altura máxima del contenedor */
     overflow-y: hidden !important; /* Habilitar scroll vertical */
     overflow-x: hidden !important;
     margin: auto !important; /* Centramos el contenedor */
@@ -525,29 +525,63 @@ body {
   margin-bottom: 15px;
 }
 
-/* Botones minimalistas */
-.control-buttons-container button {
-  width: 60px;
-  height: 40px;
-  margin: 10px;
-  border: none;
-  background-color: black; /* Color sólido negro */
-  color: white; /* Texto blanco para contraste */
-  border-radius: 5px; /* Bordes redondeados para un diseño más limpio */
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease; /* Animación de interacción */
+
+/* Ajustes generales para los botones */
+.control-buttons-container button,
+.theme-toggle-container button {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cursor en forma de mano */
+    padding: 10px; /* Espaciado interno */
+    display: flex; /* Alinear el contenido del botón */
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease; /* Transición suave */
 }
 
-/* Efecto hover */
-.control-buttons-container button:hover {
-  background-color: #333; /* Un tono más claro de negro al pasar el cursor */
-  transform: scale(1.05); /* Ligera ampliación para feedback visual */
+/* Ajustes para las imágenes dentro de los botones */
+button img.icon {
+    width: 24px; /* Ajusta el tamaño de los íconos */
+    height: 24px;
+    filter: invert(0); /* Asegúrate de que los colores se vean bien (opcional) */
+    transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-/* Efecto activo (click) */
-.control-buttons-container button:active {
-  transform: scale(0.95); /* Ligera reducción al hacer clic */
+button:hover img.icon {
+    transform: scale(1.1); /* Agrandar el ícono al pasar el mouse */
+    filter: invert(0.5); /* Cambiar color al pasar el mouse (opcional) */
 }
+
+.control-buttons-container {
+  display: flex; /* Cambiar el diseño a flexbox */
+  justify-content: center; /* Centrar los iconos horizontalmente */
+  align-items: center; /* Centrar los iconos verticalmente */
+  gap: 20px; /* Espacio entre los botones */
+  margin-top: 20px; /* Separar el contenedor de otros elementos */
+}
+
+.theme-toggle-button {
+  background: none; /* Sin fondo */
+  border: none; /* Sin bordes */
+  cursor: pointer; /* Cambiar a cursor de mano */
+  padding: 10px; /* Espaciado interno */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease; /* Transición para el efecto hover */
+}
+
+.theme-toggle-button:hover {
+  transform: scale(1.1); /* Efecto de agrandamiento al pasar el mouse */
+}
+
+.icon {
+  width: 24px; /* Tamaño del ícono */
+  height: 24px;
+  transition: filter 0.2s ease; /* Suavizar cambios */
+}
+
+
 
 
 .game-modes {
