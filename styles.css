@@ -133,19 +133,19 @@ body {
   }
 
   .scroll-container {
-    max-height: 100px; /* Altura máxima del contenedor */
-    overflow-y: auto; /* Habilitar scroll vertical */
-    margin: 20px auto; /* Centramos el contenedor */
-    padding: 10px;
-    border: none;
-    border-radius: 5px; /* Bordes redondeados */
-    width: 90%; /* Tamaño relativo al ancho */
+    max-height: 120px !important; /* Altura máxima del contenedor */
+    overflow-y: auto !important; /* Habilitar scroll vertical */
+    margin: 20px auto !important; /* Centramos el contenedor */
+    padding: 10px !important;
+    border: none !important;
+    border-radius: 5px !important; /* Bordes redondeados */
+    width: 90% !important; /* Tamaño relativo al ancho */
   }
   
   
   .scroll-container.scroll-enabled {
-    overflow-y: auto; /* Activar barra de desplazamiento */
-  }
+    overflow-y: auto !important; /* Activar barra de desplazamiento */
+  } 
 
   .popup {
     width: 90%;
