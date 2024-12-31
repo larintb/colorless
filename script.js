@@ -608,28 +608,45 @@ window.addEventListener('load', adjustKeyboardPosition);
 // Adjust the position of the keyboard if the window size changes, with debounce
 window.addEventListener('resize', debounce(adjustKeyboardPosition, 100));
 
-// Incrementar al iniciar el juego
+// Increment active players only if there's no existing session
 function playerJoin() {
-  let activePlayers = parseInt(localStorage.getItem('activePlayers') || '0');
-  activePlayers++;
-  localStorage.setItem('activePlayers', activePlayers);
-  updatePlayerCountDisplay(activePlayers);
+  // Check if the session is already active
+  if (!sessionStorage.getItem('sessionActive')) {
+    let activePlayers = parseInt(localStorage.getItem('activePlayers') || '0');
+    activePlayers++; // Increment the count
+    localStorage.setItem('activePlayers', activePlayers);
+    sessionStorage.setItem('sessionActive', 'true'); // Mark session as active
+    updatePlayerCountDisplay(activePlayers);
+  } else {
+    // Just update the display without incrementing
+    const activePlayers = parseInt(localStorage.getItem('activePlayers') || '0');
+    updatePlayerCountDisplay(activePlayers);
+  }
 }
 
-// Decrementar al cerrar el juego
+// Decrement active players when the tab or window is closed
 function playerLeave() {
-  let activePlayers = parseInt(localStorage.getItem('activePlayers') || '0');
-  activePlayers = Math.max(activePlayers - 1, 0);
-  localStorage.setItem('activePlayers', activePlayers);
+  // Remove the session only if it exists
+  if (sessionStorage.getItem('sessionActive')) {
+    let activePlayers = parseInt(localStorage.getItem('activePlayers') || '0');
+    activePlayers = Math.max(activePlayers - 1, 0); // Ensure it doesn't go below 0
+    localStorage.setItem('activePlayers', activePlayers);
+    sessionStorage.removeItem('sessionActive'); // Clear session marker
+  }
 }
 
-// Mostrar en la interfaz
+// Update the player count on the screen
 function updatePlayerCountDisplay(count) {
   const playerCountElement = document.getElementById('player-count');
-  playerCountElement.textContent = `Active Players: ${count}`;
+  if (playerCountElement) {
+    playerCountElement.textContent = `Active Players: ${count}`;
+    playerCountElement.style.color = 'yellow'; // Optional: set text color to yellow
+  } else {
+    console.error('Element with id "player-count" not found.');
+  }
 }
 
-// Escuchar eventos de cierre de pestaña
+// Attach the join and leave handlers
 window.addEventListener('load', playerJoin);
 window.addEventListener('beforeunload', playerLeave);
 
