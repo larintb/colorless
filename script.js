@@ -228,8 +228,7 @@ function restartGame() {
   enableAllButtons();
   clearInterval(timerInterval);
   timerStarted = false;
-  secondsElapsed = 0;
-  document.getElementById('timer').textContent = '0:00';
+  stopTimer();
 
 }
 
@@ -362,7 +361,6 @@ function updateBoxes() {
 
 // Check the player's guess
 function checkGuess() {
-  if (!timerStarted) startTimer();
 
   const currentRow = rows[rows.length - 1].row;
   const currentHintRow = rows[rows.length - 1].hintRow;
@@ -592,6 +590,15 @@ function startTimer() {
     const milliseconds = millisecondsElapsed % 1000;
     timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}.${Math.floor(milliseconds / 100)}`;
   }, 100); // Actualización cada 100ms
+}
+
+function stopTimer() {
+  clearInterval(timerInterval); // Stop the timer
+  timerInterval = null; // Reset the interval variable
+  timerStarted = false; // Mark timer as stopped
+  millisecondsElapsed = 0; // Reset elapsed time
+  const timerElement = document.getElementById('timer'); // Update the timer display
+  timerElement.textContent = '0:00.0';
 }
 
 
