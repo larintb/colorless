@@ -1,10 +1,15 @@
 /* Estilos base */
 body {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
   margin: 0;
   padding: 0;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #333; /* Fondo oscuro */
+  color: #fff; /* Texto blanco */
+  overflow-x: hidden; /* Evitar scroll horizontal */
   transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave entre modos */
 }
 
@@ -526,10 +531,13 @@ body {
 }
 
 #keyboard {
+  width: 100%;
+  max-width: 600px;
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
   z-index: 10; /* Siempre visible sobre guesses */
 }
 
@@ -546,7 +554,7 @@ body {
 .control-buttons-container button,
 .theme-toggle-container button {
     background: none; /* Sin fondo */
-    border: none; /* Sin borde */
+    border: thin; /* Sin borde */
     cursor: pointer; /* Cursor en forma de mano */
     padding: 10px; /* Espaciado interno */
     display: flex; /* Alinear el contenido del botón */
