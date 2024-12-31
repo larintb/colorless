@@ -556,7 +556,7 @@ button:hover img.icon {
 }
 
 .theme-dark #timer-container {
-  color: #fff;
+  color: #ffed29;
 }
 
 .navigation-bar {
@@ -652,3 +652,7 @@ button:hover img.icon {
 }
 
 
+#player-count {
+  color: yellow;
+  font-weight: bold;
+}
