@@ -17,7 +17,7 @@ body {
 } */
 
 /* iPhone pro max */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   body {
     font-size: 12px;
     padding: 5px;
@@ -66,8 +66,8 @@ body {
   }
 
   .color-box {
-    width: 40px !important;
-    height: 40px !important;
+    width: 30px !important;
+    height: 30px !important;
     margin: 3px;
   }
 
@@ -424,7 +424,9 @@ body {
 
 .color-row {
   display: flex;
+  max-width: fit-content;
   justify-content: center;
+  flex-wrap: nowrap;
   margin-bottom: 10px;
   transition: transform 0.5s ease; /* Suaviza los movimientos */
 }
@@ -441,6 +443,7 @@ body {
 
 .hint-row {
   display: flex;
+  flex-wrap: nowrap;
   justify-content: center;
   margin-bottom: 10px;
 }
