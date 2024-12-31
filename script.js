@@ -29,6 +29,8 @@ const closeSuccessPopupButton = document.getElementById('close-success-popup');
 const repeatedColorsBtn = document.getElementById('repeated-colors');
 const uniqueColorsBtn = document.getElementById('unique-colors');
 const keyboard = document.getElementById('keyboard');
+const easyModeBtn = document.getElementById('easy-mode');
+const hardModeBtn = document.getElementById('hard-mode');
 
 let guessSequence = [];
 let attempts = 0;
@@ -58,11 +60,6 @@ function switchMode(mode) {
 
   restartGame(); // Reiniciar el juego con el nuevo modo
 }
-
-document.getElementById('easy-mode').addEventListener('click', () => switchMode('easy'));
-document.getElementById('hard-mode').addEventListener('click', () => switchMode('hard'));
-document.getElementById('easy-mode').addEventListener('pointerdown', () => switchMode('easy'));
-document.getElementById('hard-mode').addEventListener('pointerdown', () => switchMode('hard'));
 
 
 
@@ -165,6 +162,26 @@ uniqueColorsBtn.addEventListener('click', () => {
     isRepeatedColors = false;
     toggleModeButtons(uniqueColorsBtn, repeatedColorsBtn);
     restartGame();
+  }
+});
+
+// Lógica para Easy Mode
+easyModeBtn.addEventListener('click', () => {
+  if (currentMode !== 'easy') {
+    currentMode = 'easy';
+    maxAttempts = 5; // Ajustar el límite de intentos
+    toggleModeButtons(easyModeBtn, hardModeBtn); // Actualizar visualmente
+    restartGame(); // Reiniciar el juego
+  }
+});
+
+// Lógica para Hard Mode
+hardModeBtn.addEventListener('click', () => {
+  if (currentMode !== 'hard') {
+    currentMode = 'hard';
+    maxAttempts = 7; // Ajustar el límite de intentos
+    toggleModeButtons(hardModeBtn, easyModeBtn); // Actualizar visualmente
+    restartGame(); // Reiniciar el juego
   }
 });
 
