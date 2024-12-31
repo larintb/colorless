@@ -33,13 +33,14 @@ body {
     justify-content: center; /* Center the hint boxes */
     gap: 5px; /* Minimize gap between boxes */
     margin-bottom: 5px; /* Reduce margin for compact spacing */
+    
   }
 
   /* Make hint-box smaller for mobile */
   body .hint-box {
     width: 40px !important;
     height: 5px !important;
-    margin: 2px !important;
+    margin: 4px !important;
   }
 
   /* Adjust hint and result text for better readability */
@@ -62,12 +63,12 @@ body {
 
   .color-row {
     gap: 3px;
-    margin-bottom: 8px;
+    margin-bottom: 3px !important;
   }
 
   .color-box {
-    width: 30px !important;
-    height: 30px !important;
+    width: 40px !important;
+    height: 40px !important;
     margin: 3px;
   }
 
@@ -144,133 +145,7 @@ body {
 }
 
 /* iPhone normal */
-@media (max-width: 420px) {
-  body {
-    font-size: 12px;
-    padding: 5px;
-  }
 
-  h1 {
-    font-size: 18px; /* Adjust header size */
-  }
-
-  .hint-row {
-    display: flex;
-    flex-wrap: wrap; /* Wrap hints to prevent overflow */
-    justify-content: center; /* Center the hint boxes */
-    gap: 5px; /* Minimize gap between boxes */
-    margin-bottom: 5px; /* Reduce margin for compact spacing */
-  }
-
-  .color-row {
-    gap: 3px;
-    margin-bottom: 8px;
-  }
-
-  /* Make hint-box smaller for mobile */
-  body .hint-box {
-    width: 40px !important;
-    height: 5px !important;
-    margin: 2px !important;
-  }
-
-  /* Adjust hint and result text for better readability */
-  #hint, #result {
-    margin-top: 10px; /* Adjust spacing */
-    font-size: 12px; /* Smaller font size */
-    text-align: center; /* Center text alignment */
-  }
-
-  .game-modes {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 5px;
-    margin: 10px 0;
-  }
-
-  .game-container {
-    margin: 10px 0;
-  }
-
-  .color-box {
-    width: 40px !important;
-    height: 40px !important;
-    margin: 3px;
-  }
-
-  .color-buttons-container {
-    display: grid !important; /* Switch to grid layout */
-    grid-template-columns: repeat(5, 1fr) !important; /* Ensure buttons fill the row evenly */
-    gap: 5px !important; /* Smaller spacing between buttons */
-    margin-bottom: 10px !important;
-  }
-
-  .color-button {
-    width: 30px !important; /* Smaller buttons */
-    height: 30px !important;
-  }
-
-  .control-buttons-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center; /* Spread control buttons */
-    gap: 5px; /* Adjust spacing */
-  }
-
-  #backspace-button, #enter-button, #restart-button {
-    width: 50px; /* Adjust control button size */
-    height: 35px;
-    font-size: 10px; 
-  }
-
-  .theme-toggle-container {
-    text-align: center;
-    margin-top: 10px;
-  }
-
-  #toggle-theme {
-    font-size: 12px;
-    padding: 8px 15px;
-  }
-
-  .scroll-container {
-    max-height: 180px !important; /* Altura máxima del contenedor */
-    overflow-y: hidden !important; /* Habilitar scroll vertical */
-    overflow-x: hidden !important;
-    margin: auto !important; /* Centramos el contenedor */
-    padding: 5px !important;
-    border: none !important;
-    border-radius: 1px !important; /* Bordes redondeados */
-    width: 90% !important; /* Tamaño relativo al ancho */
-    transition: overflow 0.3s ease-in-out !important;
-  }
-  
-  
-  .scroll-container.scroll-enabled {
-    overflow-y: auto !important; /* Activar barra de desplazamiento */
-  } 
-
-  .popup {
-    width: 70%;
-    padding: 15px;
-    font-size: 14px;
-  }
-
-  .popup h3, .popup h2 {
-    font-size: 18px;
-  }
-
-  .popup-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-
-  .winning-colors .color-box {
-    width: 30px;
-    height: 30px;
-  }
-}
 
 .theme-light {
   background-color: #ffffff; /* Fondo claro */
