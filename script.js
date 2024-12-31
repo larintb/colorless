@@ -608,6 +608,32 @@ window.addEventListener('load', adjustKeyboardPosition);
 // Adjust the position of the keyboard if the window size changes, with debounce
 window.addEventListener('resize', debounce(adjustKeyboardPosition, 100));
 
+// Incrementar al iniciar el juego
+function playerJoin() {
+  let activePlayers = parseInt(localStorage.getItem('activePlayers') || '0');
+  activePlayers++;
+  localStorage.setItem('activePlayers', activePlayers);
+  updatePlayerCountDisplay(activePlayers);
+}
+
+// Decrementar al cerrar el juego
+function playerLeave() {
+  let activePlayers = parseInt(localStorage.getItem('activePlayers') || '0');
+  activePlayers = Math.max(activePlayers - 1, 0);
+  localStorage.setItem('activePlayers', activePlayers);
+}
+
+// Mostrar en la interfaz
+function updatePlayerCountDisplay(count) {
+  const playerCountElement = document.getElementById('player-count');
+  playerCountElement.textContent = `Active Players: ${count}`;
+}
+
+// Escuchar eventos de cierre de pestaña
+window.addEventListener('load', playerJoin);
+window.addEventListener('beforeunload', playerLeave);
+
+
 // Initialize the game
 createNewRow();
 buttons.forEach(resetButton);
