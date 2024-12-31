@@ -61,7 +61,8 @@ function switchMode(mode) {
 
 document.getElementById('easy-mode').addEventListener('click', () => switchMode('easy'));
 document.getElementById('hard-mode').addEventListener('click', () => switchMode('hard'));
-
+document.getElementById('easy-mode').addEventListener('pointerdown', () => switchMode('easy'));
+document.getElementById('hard-mode').addEventListener('pointerdown', () => switchMode('hard'));
 
 
 
