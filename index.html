@@ -7,16 +7,21 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Colorless Game</h1>
-  
-  <!-- Botones de modos de juego -->
-  <div class="game-modes">
+  <nav class="navigation-bar">
+    <button id="easy-mode" class="mode-button active">Easy Mode</button>
+    <button id="hard-mode" class="mode-button">Hard Mode</button>
     <button id="repeated-colors" class="mode-button active">Repeated Colors</button>
     <button id="unique-colors" class="mode-button">No-Repeated Colors</button>
-  </div>
+  </nav>
+
+  <div class="title-container">
+  <h1>Colorless Game</h1>
+  <p class="subtitle">Guess the hidden colors in the correct order!</p>
+  <p class="author">by Larintb</p>
+  <p id="timer-container">Time: <span id="timer">0:00</span></p>
+</div>
+
   
-  <p>Guess the hidden colors in the correct order!</p>
-  <p>by Larintb</p>
   
   <!-- Contenedor principal desplazable -->
   <div id="guesses-container" class="scroll-container">

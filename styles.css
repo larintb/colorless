@@ -318,6 +318,22 @@ body {
   transform: scale(0.95);
 }
 
+/* */
+@keyframes grow {
+  0% {
+    transform: scale(1); /* Tamaño original */
+  }
+  50% {
+    transform: scale(1.2); /* Crece un 10% */
+  }
+  100% {
+    transform: scale(1); /* Regresa al tamaño original */
+  }
+}
+
+.color-box.grow {
+  animation: grow 0.3s ease; /* Duración y suavidad de la animación */
+}
 
 
 /* Animación de vibración */
@@ -459,7 +475,7 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #000000c0;
   border: 3px solid rgb(0, 0, 0);
   padding: 20px;
   z-index: 1000;
@@ -492,7 +508,7 @@ body {
 }
 
 #success-popup h2 {
-  color: #28a745;
+  color: green;
   margin-bottom: 15px;
 }
 
@@ -644,3 +660,107 @@ button:hover img.icon {
 .scroll-container.scroll-enabled {
   overflow-y: auto; /* Activar barra de desplazamiento */
 }
+
+#timer-container {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #333;
+}
+
+.theme-dark #timer-container {
+  color: #fff;
+}
+
+.navigation-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.mode-button {
+  color: white;
+  background: none;
+  border: 2px solid white;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mode-button.active {
+  background-color: white;
+  color: black;
+  transform: scale(1.1);
+}
+
+.mode-button:hover {
+  background-color: #555;
+}
+
+
+/* Contenedor principal del título */
+.title-container {
+  display: flex;
+  flex-direction: column; /* Alinear elementos en columna */
+  justify-content: center; /* Centrar verticalmente */
+  align-items: center; /* Centrar horizontalmente */
+  text-align: center; /* Centrar texto */
+  margin-top: 50px; /* Espaciado superior */
+  margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Estilo para el título principal */
+.title-container h1 {
+  font-size: 2.5rem; /* Tamaño más grande para destacar */
+  font-weight: bold; /* Negrita para el título */
+  color: #ffffff; /* Texto blanco */
+  margin-bottom: 10px; /* Espaciado debajo del título */
+}
+
+/* Estilo para el subtítulo */
+.title-container .subtitle {
+  font-size: 1.2rem; /* Tamaño del subtítulo */
+  color: #cccccc; /* Gris claro */
+  margin-bottom: 5px; /* Espaciado entre subtítulo y autor */
+}
+
+/* Estilo para el autor */
+.title-container .author {
+  font-size: 1rem; /* Tamaño más pequeño */
+  color: #aaaaaa; /* Gris tenue */
+  margin-bottom: 10px; /* Espaciado debajo del autor */
+}
+
+/* Estilo para el temporizador */
+#timer-container {
+  font-size: 1.5rem; /* Tamaño destacado */
+  color: #ffed29; /* Amarillo brillante */
+  font-weight: bold; /* Negrita para el temporizador */
+  margin-top: 10px; /* Espaciado adicional */
+  transition: color 0.3s ease; /* Suavizar cambios entre temas */
+}
+
+/* Ajustes por tema */
+.theme-light .title-container h1 {
+  color: #000000; /* Negro en tema claro */
+}
+
+.theme-light .title-container .subtitle {
+  color: #555555; /* Gris oscuro */
+}
+
+.theme-light .title-container .author {
+  color: #888888; /* Gris tenue */
+}
+
+.theme-light #timer-container {
+  color: #333333; /* Temporizador oscuro */
+}
+
+
