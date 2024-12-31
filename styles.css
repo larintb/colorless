@@ -38,7 +38,7 @@ body {
 
   /* Make hint-box smaller for mobile */
   body .hint-box {
-    width: 40px !important;
+    width: 60px !important;
     height: 5px !important;
     margin: 4px !important;
   }
@@ -67,8 +67,8 @@ body {
   }
 
   .color-box {
-    width: 40px !important;
-    height: 40px !important;
+    width: 60px !important;
+    height: 60px !important;
     margin: 3px;
   }
 
@@ -109,12 +109,14 @@ body {
 
   .scroll-container {
     max-height: 180px !important; /* Altura máxima del contenedor */
-    overflow-y: auto !important; /* Habilitar scroll vertical */
+    overflow-y: hidden !important; /* Habilitar scroll vertical */
+    overflow-x: hidden !important;
     margin: 20px auto !important; /* Centramos el contenedor */
     padding: 5px !important;
     border: none !important;
     border-radius: 5px !important; /* Bordes redondeados */
     width: 90% !important; /* Tamaño relativo al ancho */
+    transition: overflow 0.3s ease-in-out;
   }
   
   
