@@ -32,13 +32,38 @@ const keyboard = document.getElementById('keyboard');
 
 let guessSequence = [];
 let attempts = 0;
-const maxAttempts = 5;
+let maxAttempts = 5;
+let currentMode = 'easy';
 let rows = [];
 let isRepeatedColors = true; // Default mode
 let targetColors = generateTargetColors();
 let invalidColors = new Set(); // Tracks invalid colors
 let initialDistance; // Distancia inicial entre el contenedor y el teclado
 let attemptsMade = 0; // Número de intentos realizados
+// Timer variables
+let timerInterval;
+let timerStarted = false;
+let secondsElapsed = 0;
+
+function switchMode(mode) {
+  if (mode === currentMode) return; // Si ya está activo, no hacer nada
+
+  // Actualizar el modo actual
+  currentMode = mode;
+  maxAttempts = mode === 'easy' ? 5 : 7;
+
+  // Actualizar botones en la barra de navegación
+  document.getElementById('easy-mode').classList.toggle('active', mode === 'easy');
+  document.getElementById('hard-mode').classList.toggle('active', mode === 'hard');
+
+  restartGame(); // Reiniciar el juego con el nuevo modo
+}
+
+document.getElementById('easy-mode').addEventListener('click', () => switchMode('easy'));
+document.getElementById('hard-mode').addEventListener('click', () => switchMode('hard'));
+
+
+
 
 // Evento para detectar la tecla "Enter"
 document.addEventListener('keydown', (event) => {
@@ -49,11 +74,12 @@ document.addEventListener('keydown', (event) => {
 
 // Función para manejar la acción de "Enter"
 function handleEnter() {
-  if (guessSequence.length === 5) {
+  if (guessSequence.length === maxAttempts) {
     checkGuess(); // Llamar a la función de validación si hay un guess completo
   } else {
     // Si el intento está incompleto, agregar un efecto visual
     const currentRow = rows[rows.length - 1].row;
+    console.log(currentRow);
     currentRow.forEach(box => {
       box.classList.add('shake'); // Aplicar la animación de "shake"
     });
@@ -105,8 +131,19 @@ document.addEventListener('keydown', (event) => {
 // Función para manejar la acción de "Backspace"
 function handleBackspace() {
   if (guessSequence.length > 0) {
-    guessSequence.pop(); // Eliminar el último color de la secuencia
-    updateBoxes(); // Actualizar los cuadros de la fila activa
+    const currentRow = rows[rows.length - 1].row; // Fila activa
+    const indexToRemove = guessSequence.length - 1; // Índice del recuadro a borrar
+
+    // Eliminar el último color de la secuencia
+    guessSequence.pop();
+
+    // Resetear el estado visual del recuadro correspondiente
+    const box = currentRow[indexToRemove];
+    box.style.backgroundColor = 'gray'; // Fondo predeterminado
+    box.removeAttribute('data-color'); // Eliminar color asignado
+    box.removeAttribute('data-animated'); // Permitir nueva animación
+
+    updateBoxes(); // Actualizar los cuadros restantes
   }
 }
 
@@ -137,12 +174,16 @@ function toggleModeButtons(activeBtn, inactiveBtn) {
 
 // Generate target colors
 function generateTargetColors() {
-  const colors = isRepeatedColors
-    ? Array.from({ length: 5 }, () => pastelColorValues[Math.floor(Math.random() * pastelColorValues.length)])
-    : [...pastelColorValues].sort(() => Math.random() - 0.5).slice(0, 5);
+  // Definir el número de colores en función de maxAttempts
+  const numColors = maxAttempts; // Usar maxAttempts dinámicamente (5 para Easy, 7 para Hard)
 
-  const colorKeys = colors.map(value => Object.keys(pastelColors).find(key => pastelColors[key] === value));
-  console.log(colorKeys);
+  // Generar colores según el modo
+  const colors = isRepeatedColors
+    ? Array.from({ length: numColors }, () => pastelColorValues[Math.floor(Math.random() * pastelColorValues.length)])
+    : [...pastelColorValues].sort(() => Math.random() - 0.5).slice(0, numColors);
+
+    const colorKeys = colors.map(value => Object.keys(pastelColors).find(key => pastelColors[key] === value));
+    console.log(colorKeys);
   return colors;
 }
 
@@ -167,6 +208,10 @@ function restartGame() {
   attempts = 0;
   attemptsMade = 0;
   enableAllButtons();
+  clearInterval(timerInterval);
+  timerStarted = false;
+  secondsElapsed = 0;
+  document.getElementById('timer').textContent = '0:00';
 
 }
 
@@ -235,16 +280,25 @@ function createNewRow() {
   hintRow.classList.add('hint-row', 'slide-up'); // Agregar clase de animación
   gameContainer.appendChild(hintRow);
 
-  const newBoxes = targetColors.map(color => {
+  // Crear los cuadros de la fila
+  const newBoxes = Array.from({ length: maxAttempts }).map(() => {
     const box = document.createElement('div');
     box.classList.add('color-box');
-    box.style.backgroundColor = 'gray';
-    box.setAttribute('data-color', color);
+    box.style.backgroundColor = 'lightgray'; // Fondo inicial
     row.appendChild(box);
     return box;
   });
 
-  rows.push({ row: newBoxes, hintRow });
+  // Crear cuadros vacíos para los hints
+  const newHints = Array.from({ length: maxAttempts }).map(() => {
+    const hintBox = document.createElement('div');
+    hintBox.classList.add('hint-box');
+    hintBox.style.backgroundColor = 'lightgray'; // Fondo inicial
+    hintRow.appendChild(hintBox);
+    return hintBox;
+  });
+
+  rows.push({ row: newBoxes, hintRow: newHints });
 
   // Verificar si se requiere scroll después de crear la fila
   checkScrollRequirement();
@@ -261,45 +315,54 @@ function createNewRow() {
 
 // Update the current row with guessed colors
 function updateBoxes() {
+  // Obtener la fila actual
   const currentRow = rows[rows.length - 1].row;
-  currentRow.forEach((box, index) => {
-    const currentColor = box.style.backgroundColor;
-    const newColor = guessSequence[index];
 
-    if (newColor && currentColor !== newColor) {
-      box.classList.remove('appear'); // Reiniciar cualquier animación previa
-      void box.offsetWidth; // Forzar reflujo
-      box.style.backgroundColor = newColor;
-      box.classList.add('appear');
-    } else if (!newColor) {
-      box.style.backgroundColor = 'gray';
+  currentRow.forEach((box, index) => {
+    const newColor = guessSequence[index]; // Obtener el nuevo color para este índice
+
+    // Si hay un nuevo color y es diferente al actual
+    if (newColor && box.getAttribute('data-color') !== newColor) {
+      box.style.backgroundColor = newColor; // Actualizar color
+      box.setAttribute('data-color', newColor); // Marcar el color asignado
+      console.log(newColor);
+      // Reiniciar y ejecutar animación
+      box.classList.remove('grow'); // Eliminar animación previa (si existe)
+      void box.offsetWidth; // Forzar reflujo (necesario para reiniciar la animación)
+      box.classList.add('grow'); // Añadir animación
+      
+    } 
+    
+    // Si no hay color en esta posición
+    else if (!newColor) {
+      box.style.backgroundColor = 'lightgray'; // Fondo predeterminado
+      box.removeAttribute('data-color'); // Eliminar color asignado
+      box.classList.remove('grow'); // Asegurarse de que no quede una animación previa
     }
   });
 }
 
 // Check the player's guess
 function checkGuess() {
+  if (!timerStarted) startTimer();
+
   const currentRow = rows[rows.length - 1].row;
   const currentHintRow = rows[rows.length - 1].hintRow;
   currentHintRow.innerHTML = '';
-
   const hints = generateHints();
+
+  if (!timerStarted) startTimer(); // Iniciar el temporizador si no se ha iniciado
 
   // Oscurecer botones inválidos
   guessSequence.forEach(color => {
     if (!targetColors.includes(color)) markButtonAsInvalid(color);
   });
 
-  // Mostrar pistas con animación
-  hints.forEach((hintColor, index) => {
+  currentHintRow.forEach((hintBox, index) => {
     setTimeout(() => {
-      const hintBox = document.createElement('div');
-      hintBox.classList.add('hint-box', 'appear');
-      hintBox.style.backgroundColor = hintColor;
-      currentHintRow.appendChild(hintBox);
-
-      setTimeout(() => hintBox.classList.remove('appear'), 500);
-    }, index * 100);
+      hintBox.style.backgroundColor = hints[index]; // Aplicar el color de la pista
+      hintBox.classList.add('appear'); // Añadir animación de aparición
+    }, index * 100); // Retardo entre cada actualización
   });
 
   if (hints.every(hint => hint === 'green')) {
@@ -313,7 +376,7 @@ function checkGuess() {
 }
 
 function generateHints() {
-  const hints = new Array(5).fill('black');
+  const hints = new Array(targetColors.length).fill('black');
   const usedTargetIndices = new Set();
   const usedGuessIndices = new Set();
 
@@ -342,26 +405,43 @@ function generateHints() {
 // Show success popup
 // Mostrar el pop-up de éxito con animación
 function showSuccessPopup() {
-  const winningColors = successPopup.querySelector('.winning-colors');
-  winningColors.innerHTML = '';
+  clearInterval(timerInterval); // Detener el temporizador
 
+  const successPopup = document.getElementById('success-popup');
+  const winningColorsContainer = successPopup.querySelector('.winning-colors');
+
+  // Limpiar el contenedor de colores y el contenido del pop-up
+  winningColorsContainer.innerHTML = '';
+  successPopup.querySelectorAll('p.time-display').forEach(el => el.remove());
+
+  // Agregar los colores ganadores
   targetColors.forEach(color => {
     const colorBox = document.createElement('div');
     colorBox.classList.add('color-box');
     colorBox.style.backgroundColor = color;
-    winningColors.appendChild(colorBox);
+    winningColorsContainer.appendChild(colorBox);
   });
 
-  successPopup.style.display = 'block';
+  // Mostrar el tiempo solo una vez
+  const timeDisplay = document.createElement('p');
+  timeDisplay.classList.add('time-display');
+  timeDisplay.textContent = `Time: ${(millisecondsElapsed / 1000).toFixed(2)} seconds`;
+  successPopup.appendChild(timeDisplay);
 
-  // Deshabilitar todos los botones excepto el de reinicio
-  disableAllButtons();
+  successPopup.style.display = 'block';
 }
 
-// Show failure popup
 function showPopup() {
-  popupContent.innerHTML = '';
+  clearInterval(timerInterval); // Detener el temporizador
 
+  const popup = document.getElementById('popup');
+  const popupContent = popup.querySelector('#popup-content');
+
+  // Limpiar el contenedor de colores y el contenido del pop-up
+  popupContent.innerHTML = '';
+  popup.querySelectorAll('p.time-display').forEach(el => el.remove());
+
+  // Agregar los colores correctos
   targetColors.forEach(color => {
     const colorBox = document.createElement('div');
     colorBox.classList.add('color-box');
@@ -369,14 +449,13 @@ function showPopup() {
     popupContent.appendChild(colorBox);
   });
 
-  popup.style.display = 'block';
-  popup.classList.add('bounce-in'); // Agregar la animación
+  // Mostrar el tiempo solo una vez
+  const timeDisplay = document.createElement('p');
+  timeDisplay.classList.add('time-display');
+  timeDisplay.textContent = `Time: ${(millisecondsElapsed / 1000).toFixed(2)} seconds`;
+  popup.appendChild(timeDisplay);
 
-  // Remover la clase después de la animación para que sea reutilizable
-  setTimeout(() => {
-    popup.classList.remove('bounce-in');
-  }, 600); // Duración de la animación
-  disableAllButtons();
+  popup.style.display = 'block';
 }
 
 // Function to handle shaking effect
@@ -399,7 +478,7 @@ function shakeRow() {
 // Keyboard color input
 buttons.forEach(button => {
   button.addEventListener('click', () => {
-    if (guessSequence.length < 5) {
+    if (guessSequence.length < maxAttempts) {
       guessSequence.push(button.getAttribute('data-color'));
       updateBoxes();
     }
@@ -409,7 +488,7 @@ buttons.forEach(button => {
 
 
 enterButton.addEventListener('click', () => {
-  if (guessSequence.length < 5) {
+  if (guessSequence.length < maxAttempts) {
     shakeRow(); // shaking if guess is incomplete
   } else {
     checkGuess();
@@ -479,6 +558,24 @@ function debounce(func, wait) {
     timeout = setTimeout(() => func.apply(this, args), wait);
   };
 }
+
+let millisecondsElapsed = 0; // Contador de milisegundos
+
+function startTimer() {
+  if (timerStarted) return; // Evitar múltiples inicios
+  timerStarted = true;
+  const timerElement = document.getElementById('timer');
+  
+  timerInterval = setInterval(() => {
+    millisecondsElapsed += 100; // Incrementar cada 100ms
+    const totalSeconds = millisecondsElapsed / 1000;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+    const milliseconds = millisecondsElapsed % 1000;
+    timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}.${Math.floor(milliseconds / 100)}`;
+  }, 100); // Actualización cada 100ms
+}
+
 
 // Adjust the position of the keyboard when the page loads
 window.addEventListener('load', adjustKeyboardPosition);
